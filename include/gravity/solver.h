@@ -24,7 +24,7 @@
 #include <IpSolveStatistics.hpp>
 #include <future>
 #include <thread>
-#include <pthread.h>
+// #include <pthread.h>
 
 
 using Ipopt::IsValid;
@@ -237,6 +237,10 @@ namespace gravity {
                     SmartPtr<IpoptApplication> iapp = IpoptApplicationFactory();
                     iapp->RethrowNonIpoptException(true);
                     ApplicationReturnStatus status = iapp->Initialize();
+
+                    iapp->Options()->SetStringValue("hsllib", "libhsl.dll");
+                    iapp->Options()->SetStringValue("linear_solver", "ma27");
+                    iapp->Options()->SetStringValue("print_timing_statistics", "yes");
                     
                     if (status != Solve_Succeeded) {
                         std::cout << std::endl << std::endl << "*** Error during initialization!" << std::endl;
@@ -246,8 +250,8 @@ namespace gravity {
                         iapp->Options()->SetStringValue("linear_solver", lin_solver.second);
                     }
                     //                    iapp->Options()->SetStringValue("mehrotra_algorithm", mehrotra);
-                    iapp->Options()->SetNumericValue("tol", tol);
-                    iapp->Options()->SetIntegerValue("print_level", output);
+                    // iapp->Options()->SetNumericValue("tol", tol);
+                    // iapp->Options()->SetIntegerValue("print_level", output);
                     //iapp->Options()->SetStringValue("honor_original_bounds", "no");
                     /** Bonmin options */
                     //            iapp->Options()->SetStringValue("mu_strategy", "adaptive");
@@ -258,7 +262,7 @@ namespace gravity {
 //                                iapp->Options()->SetNumericValue("bound_frac", 1e-12);
 //                                iapp->Options()->SetIntegerValue("acceptable_iter", 0);
                     //            iapp->Options()->SetNumericValue("slack_bound_push", 1e-12);
-                    iapp->Options()->SetNumericValue("constr_viol_tol", tol);
+                    // iapp->Options()->SetNumericValue("constr_viol_tol", tol);
                     //            iapp->Options()->SetNumericValue("dual_inf_tol", 1);
                     //            iapp->Options()->SetNumericValue("compl_inf_tol", 1e-3);
 //                    iapp->Options()->SetNumericValue("bound_relax_factor", tol*1e-1);
@@ -298,7 +302,7 @@ namespace gravity {
                     //                        iapp->Options()->SetNumericValue("ma27_la_init_factor", 100);
                     //                        iapp->Options()->SetNumericValue("ma27_meminc_factor", 5);
                     //                        iapp->Options()->SetStringValue("mu_strategy", "adaptive");
-                    iapp->Options()->SetNumericValue("tol", tol);
+                    // iapp->Options()->SetNumericValue("tol", tol);
                     //                            iapp->Options()->SetNumericValue("dual_inf_tol", 1e-6);
                     //                                                        iapp->Options()->SetStringValue("derivative_test", "second-order");
                     //                            iapp->Options()->SetNumericValue("bound_relax_factor", 0);

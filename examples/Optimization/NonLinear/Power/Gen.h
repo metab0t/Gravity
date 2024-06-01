@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include <gravity/var.h>
+#include <gravity/func.h>
 #include "Bound.h"
 #include "GenCost.h"
 #include <iostream>

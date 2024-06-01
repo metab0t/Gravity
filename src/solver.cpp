@@ -7,7 +7,7 @@
 //
 
 #include <gravity/solver.h>
-#include <pthread.h>
+// #include <pthread.h>
 
 #ifdef USE_BONMIN
 #include <BonBonminSetup.hpp>
@@ -182,36 +182,36 @@ Model<type> Model<type>::build_model_interior() const
 
 
 /* Runds models stored in the vector in parallel, using solver of stype and tolerance tol */
-int run_parallel(const vector<shared_ptr<gravity::Model<double>>>& models, gravity::SolverType stype, double tol, unsigned nr_threads, const string& lin_solver, int max_iter){
-    std::vector<thread> threads;
-    std::vector<bool> feasible;
-    if(models.size()==0){
-        DebugOff("in run_parallel(models...), models is empty, returning");
-        return -1;
-    }
-    /* Split models into nr_threads parts */
-    auto nr_threads_ = std::min((size_t)nr_threads,models.size());
-    std::vector<size_t> limits = bounds(nr_threads_, models.size());
-    DebugOff("Running on " << nr_threads_ << " threads." << endl);
-    DebugOff("limits size = " << limits.size() << endl);
-    for (size_t i = 0; i < limits.size(); ++i) {
-        DebugOff("limits[" << i << "] = " << limits[i] << endl);
-    }
-    /* Launch all threads in parallel */
-    auto vec = vector<shared_ptr<gravity::Model<double>>>(models);
-    for (size_t i = 0; i < nr_threads_; ++i) {
-        threads.push_back(thread(run_models<double>, ref(vec), limits[i], limits[i+1], stype, tol, lin_solver, max_iter));
-    }
-    /* Join the threads with the main thread */
-    for(auto &t : threads){
-        t.join();
-    }
-    return 0;
-}
+// int run_parallel(const vector<shared_ptr<gravity::Model<double>>>& models, gravity::SolverType stype, double tol, unsigned nr_threads, const string& lin_solver, int max_iter){
+//     std::vector<thread> threads;
+//     std::vector<bool> feasible;
+//     if(models.size()==0){
+//         DebugOff("in run_parallel(models...), models is empty, returning");
+//         return -1;
+//     }
+//     /* Split models into nr_threads parts */
+//     auto nr_threads_ = std::min((size_t)nr_threads,models.size());
+//     std::vector<size_t> limits = bounds(nr_threads_, models.size());
+//     DebugOff("Running on " << nr_threads_ << " threads." << endl);
+//     DebugOff("limits size = " << limits.size() << endl);
+//     for (size_t i = 0; i < limits.size(); ++i) {
+//         DebugOff("limits[" << i << "] = " << limits[i] << endl);
+//     }
+//     /* Launch all threads in parallel */
+//     auto vec = vector<shared_ptr<gravity::Model<double>>>(models);
+//     for (size_t i = 0; i < nr_threads_; ++i) {
+//         threads.push_back(thread(run_models<double>, ref(vec), limits[i], limits[i+1], stype, tol, lin_solver, max_iter));
+//     }
+//     /* Join the threads with the main thread */
+//     for(auto &t : threads){
+//         t.join();
+//     }
+//     return 0;
+// }
 
-int run_parallel(const vector<shared_ptr<gravity::Model<double>>>& models, gravity::SolverType stype, double tol, unsigned nr_threads, int max_iter){
-    return run_parallel(models,stype,tol,nr_threads,"",max_iter);
-};
+// int run_parallel(const vector<shared_ptr<gravity::Model<double>>>& models, gravity::SolverType stype, double tol, unsigned nr_threads, int max_iter){
+//     return run_parallel(models,stype,tol,nr_threads,"",max_iter);
+// };
 
 /** Discretizes Constraint con and adds OA cuts to the model that calls it. Discretization of squared constraint only currently implemented
  @param[in] nb_discr:

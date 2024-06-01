@@ -6195,7 +6195,7 @@ namespace gravity {
 #ifdef USE_MPI
                                         run_MPI(batch_models,lb_solver_type,lb_solver_tol,nb_threads,"ma27",2000,2000, false,true);
 #else
-                                        run_parallel(batch_models,lb_solver_type,lb_solver_tol,nb_threads, 2000);
+                                        // run_parallel(batch_models,lb_solver_type,lb_solver_tol,nb_threads, 2000);
 #endif
                                         double batch_time_end = get_wall_time();
                                         auto batch_time = batch_time_end - batch_time_start;

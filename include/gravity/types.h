@@ -82,7 +82,7 @@ typedef enum { unindexed_, in_, in_pairs_, out_, from_, to_, prev_, in_at_, in_t
 
 using namespace std;
 
-static double pi = 4.*atan(1.);
+static double pi = M_PI;
 
 
 class space{
@@ -1531,7 +1531,7 @@ public:
         size_t max_dim = 0;
         for(size_t inst = 0; inst<nb_inst; inst++){
             auto nb_idx = _ids->at(inst).size();
-            max_dim = max(max_dim,nb_idx);
+            max_dim = std::max(max_dim,nb_idx);
         }
         return max_dim;
     }

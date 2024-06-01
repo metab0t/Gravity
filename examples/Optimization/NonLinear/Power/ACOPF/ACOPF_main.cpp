@@ -301,12 +301,12 @@ int main (int argc, char * argv[])
     Thermal_Limit_to += pow(Pf_to, 2) + pow(Qf_to, 2);
     Thermal_Limit_to -= pow(S_max,2);
     ACOPF.add(Thermal_Limit_to.in(arcs) <= 0);
-    ACOPF.print();
+    // ACOPF.print();
 //    ACOPF.initialize_uniform();
     solver<> OPF(ACOPF,ipopt);
     double solver_time_start = get_wall_time();
-    OPF.run(output=5, tol = 1e-6);
-    OPF.run(output=5, tol = 1e-6);
+    OPF.run(output=5);
+    // OPF.run(output=5, tol = 1e-6);
     double solver_time_end = get_wall_time();
     double total_time_end = get_wall_time();
     auto solve_time = solver_time_end - solver_time_start;
