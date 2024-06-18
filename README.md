@@ -1,3 +1,19 @@
+## Personal fork
+
+This is a personal fork of the Gravity project. I have made some changes to the code to make it compile on Windows and I want to use the ACOPF example.
+
+Firstly, run the following commands to compile the project:
+
+```cmd
+mkdir build
+cd build
+cmake --build . --config Release --parallel
+```
+
+You will get `acopf.exe` in `build/Release` directory. It is dynamically linked to the Ipopt library, so you need the download [the binary release of Ipopt](https://github.com/coin-or/Ipopt/releases/download/releases%2F3.14.16/Ipopt-3.14.16-win64-msvs2019-md.zip) and add the `bin` directory to the system path.
+
+-----------------
+
 [![License](https://img.shields.io/badge/License-BSD--3-brightgreen.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![Github Actions](https://github.com/coin-or/Gravity/actions/workflows/cmake.yml/badge.svg)](https://github.com/coin-or/Gravity/actions/workflows/cmake.yml)
 [![Code Coverage](https://codecov.io/gh/coin-or/gravity/branch/master/graph/badge.svg)](https://codecov.io/gh/coin-or/Gravity)

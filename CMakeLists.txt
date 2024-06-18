@@ -14,8 +14,8 @@ add_definitions(-DUSE_IPOPT)
 #use c++latest standard
 set(CMAKE_CXX_STANDARD 20)
 
-set(IPOPT_INCLUDE_DIR D:/Ipopt/include/coin-or)
-set(IPOPT_LIB_DIR D:/Ipopt/lib)
+set(IPOPT_INCLUDE_DIR thirdparty/Ipopt/include/coin-or)
+set(IPOPT_LIB_DIR thirdparty/Ipopt/lib)
 set(IPOPT_LIB ipopt.dll.lib)
 
 add_library(

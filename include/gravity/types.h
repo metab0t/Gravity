@@ -43,7 +43,9 @@ namespace gravity{
 #define Binary bool
 #define Debug(x)
 #define DebugOn(x) cout << x
+#define DebugOn(x)
 #define Warning(x) cout << x
+#define Warning(x)
 #define WarningOff(x)
 #define DebugOff(x)
 
