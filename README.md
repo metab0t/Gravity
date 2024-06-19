@@ -7,6 +7,7 @@ Firstly, run the following commands to compile the project:
 ```cmd
 mkdir build
 cd build
+cmake .. -A x64
 cmake --build . --config Release --parallel
 ```
 
