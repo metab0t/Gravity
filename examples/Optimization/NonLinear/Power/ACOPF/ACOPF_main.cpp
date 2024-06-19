@@ -50,11 +50,11 @@ int main (int argc, char * argv[])
         exit(0);
     }
 #else
-    if(argc==2){
+    if(argc>=2){
         fname=argv[1];
     }
-    else{
-        fname=string(prj_dir)+"/data_sets/Power/nesta_case5_pjm.m";
+    if (argc >= 3) {
+        mtype = argv[2];
     }
 #endif
     double total_time_start = get_wall_time();
