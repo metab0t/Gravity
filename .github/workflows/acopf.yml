@@ -1,0 +1,63 @@
+name: Build HiGHS
+
+on: [push]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Build ACOPF
+      run: |
+        mkdir build
+        cd build
+        cmake --build . --config Release --parallel
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ACOPF-${{ runner.os }}-${{ runner.arch }}
+        path: build/Release
+
+  # I want to create a release, download the artifacts and upload them to release
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download artifact
+      uses: actions/download-artifact@v4
+      with:
+        pattern: ACOPF-*
+        path: artifacts
+    - name: Display structure of downloaded files
+      run: ls artifacts
+    - name: Create archives
+      run: |
+        cd artifacts
+        for f in *; do
+          if [ -d "$f" ]; then
+            zip -r "$f.zip" "$f"
+          fi
+        done
+    - name: Display structure of archives
+      run: ls artifacts
+    - name: Generate release tag
+      id: tag
+      run: |
+        echo "release_tag=UserBuild_$(date +"%Y.%m.%d_%H-%M")" >> $GITHUB_OUTPUT
+    - name: Release
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: ${{ steps.tag.outputs.release_tag }}
+        files: |
+          artifacts/*.zip
+        prerelease: true
+    
