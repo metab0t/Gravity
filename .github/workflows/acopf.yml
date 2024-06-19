@@ -1,4 +1,4 @@
-name: Build HiGHS
+name: Build ACOPF
 
 on: [push]
 
